@@ -4,6 +4,26 @@
     android:layout_height="match_parent"
     android:background="#001829">
 
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textSize="14sp"
+            android:id="@+id/search_edit_text"
+            android:textColorHint="@color/grey_600"
+            android:textColor="@android:color/white"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:hint="Search"
+            android:background="@color/grey_800"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/media_control"
         android:layout_width="match_parent"
@@ -11,10 +31,21 @@
         android:layout_alignParentBottom="true"
         android:background="#CC000000">
 
+        <ImageView
+            android:contentDescription="song_image"
+            android:id="@+id/song_cover_image"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:src="@drawable/library_music" />
+
         <ImageButton
             android:id="@+id/btnPlay"
             style="@android:style/MediaButton.Play"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerInParent="true" />
 
         <TextView
@@ -22,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/btnPlay"
+            android:layout_toEndOf="@id/song_cover_image"
             android:text="Now Playing"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
@@ -33,6 +64,7 @@
         android:id="@+id/songs_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/search_layout"
         android:layout_above="@id/media_control">
 
     </android.support.v7.widget.RecyclerView>

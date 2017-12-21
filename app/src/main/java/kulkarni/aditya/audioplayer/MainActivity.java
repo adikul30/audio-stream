@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
     private ImageButton btnPlay;
     TextView nowPlaying;
     ProgressBar progressBar;
+    EditText searchET;
 
     private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
         @Override
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         nowPlaying = (TextView)findViewById(R.id.now_playing);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
+        searchET = (EditText)findViewById(R.id.search_edit_text);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -170,6 +175,25 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
             @Override
             public void onFailure(@NonNull Call<ArrayList<Song>> call, @NonNull Throwable t) {
                 // the network call was a failure
+            }
+        });
+
+        searchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String searchText = editable.toString().toLowerCase(Locale.getDefault());
+                Log.d("SearchQuery", searchText);
+                songAdapter.filter(searchText);
             }
         });
     }

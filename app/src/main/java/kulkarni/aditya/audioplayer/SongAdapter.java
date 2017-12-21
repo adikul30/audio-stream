@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.Target;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by adicool on 16/12/17.
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<Song> songArrayList;
+    private ArrayList<Song> songArrayList,songArrayListCopy;
     private final songOnClickHandler mClickHandler;
 
     public SongAdapter(Context context, ArrayList<Song> songArrayList,songOnClickHandler onClickHandler) {
@@ -39,6 +40,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     public void setList(ArrayList<Song> gitHubRepos) {
         this.songArrayList = gitHubRepos;
+        songArrayListCopy = new ArrayList<>();
+        songArrayListCopy.addAll(songArrayList);
         notifyDataSetChanged();
     }
 
@@ -81,6 +84,28 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         } else {
             return songArrayList.size();
         }
+    }
+
+    public void filter(String searchText){
+        searchText = searchText.toLowerCase(Locale.getDefault());
+        Log.d("adapater",searchText);
+        songArrayList.clear();
+
+        if(searchText.length() == 0) {
+            songArrayList.addAll(songArrayListCopy);
+        }
+        else{
+            Log.d("copylistcheck",songArrayList.toString());
+            Log.d("songlistcheck",songArrayList.toString());
+            for (int i=0 ; i < songArrayListCopy.size() ; i++){
+                if (songArrayListCopy.get(i).getSong().toLowerCase(Locale.getDefault()).contains(searchText)) {
+                    Log.d("search hit",songArrayListCopy.get(i).getSong().toLowerCase(Locale.getDefault()));
+                    songArrayList.add(songArrayListCopy.get(i));
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
