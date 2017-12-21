@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
     TextView nowPlaying;
     ProgressBar progressBar;
     EditText searchET;
+    ImageView songImage;
 
     private ExoPlayer.EventListener eventListener = new ExoPlayer.EventListener() {
         @Override
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
         nowPlaying = (TextView)findViewById(R.id.now_playing);
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
         searchET = (EditText)findViewById(R.id.search_edit_text);
+        songImage = (ImageView)findViewById(R.id.song_cover);
 
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -237,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
     }
 
     @Override
-    public void onClick(int position,String url,String title) {
+    public void onClick(int position, String url, String title, final String imageUrl) {
         nowPlaying.setText(title);
         progressBar.setVisibility(View.VISIBLE);
         webView.loadUrl(url);
@@ -246,6 +249,18 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.songO
                 decompressedUrl = webView.getUrl();
                 Log.d("url",decompressedUrl);
                 playFromURL(Uri.parse(decompressedUrl));
+                getImage(imageUrl);
+            }
+        });
+    }
+
+    public void getImage(String imageUrl){
+        webView.loadUrl(imageUrl);
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                String decompressedUrl = webView.getUrl();
+                Log.d("imageUrl",decompressedUrl);
+                songAdapter.setImage(decompressedUrl,songImage);
             }
         });
     }

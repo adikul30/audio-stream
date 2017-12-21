@@ -2,6 +2,7 @@ package kulkarni.aditya.audioplayer;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -55,26 +56,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.song.setText(songArrayList.get(position).getSong());
         holder.artists.setText(songArrayList.get(position).getArtists());
-//        String url = songArrayList.get(position).getUrl();
-//		Glide.with(mContext.getApplicationContext())
-//				.load(url)
-//				.listener(new RequestListener<Drawable>()
-//				{
-//					@Override
-//					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource)
-//					{
-//						return false;
-//					}
-//
-//					@Override
-//					public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource)
-//					{
-//						Log.d("Glide", "resource ready");
-//						return false;
-//					}
-//
-//				})
-//				.into(holder.image);
     }
 
     @Override
@@ -108,17 +89,38 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void setImage(String imageUrl,ImageView songImage){
+		Glide.with(mContext.getApplicationContext())
+				.load(imageUrl)
+				.listener(new RequestListener<Drawable>()
+				{
+					@Override
+					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource)
+					{
+						return false;
+					}
+
+					@Override
+					public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource)
+					{
+						Log.d("Glide", "resource ready");
+						return false;
+					}
+
+				})
+				.into(songImage);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView song,artists;
-        ImageView image;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             song = (TextView)itemView.findViewById(R.id.song_name);
             artists = (TextView)itemView.findViewById(R.id.song_artists);
-            image = (ImageView) itemView.findViewById(R.id.song_cover_image);
             itemView.setOnClickListener(this);
 
         }
@@ -126,11 +128,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             Song model = songArrayList.get(getAdapterPosition());
-            mClickHandler.onClick(getAdapterPosition(), model.getUrl(),model.getSong());
+            mClickHandler.onClick(getAdapterPosition(), model.getUrl(),model.getSong(),model.getCover_image());
         }
     }
 
     public interface songOnClickHandler {
-        void onClick(int position, String url,String title);
+        void onClick(int position, String songUrl,String title,String imageUrl);
     }
 }

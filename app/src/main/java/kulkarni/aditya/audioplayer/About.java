@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class About extends AppCompatActivity {
 
-    ImageView githubLink;
+    ImageView newsLink,iplLink,firebaseAppLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +24,36 @@ public class About extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        githubLink = (ImageView) findViewById(R.id.github_link);
-        githubLink.setOnClickListener(new View.OnClickListener() {
+        newsLink = (ImageView) findViewById(R.id.news_app_link);
+        iplLink = (ImageView) findViewById(R.id.ipl_app_link);
+        firebaseAppLink = (ImageView) findViewById(R.id.firebase_app_link);
+
+        newsLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent githubRepo = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/adikul30"));
-                startActivity(githubRepo);
+                handleIntent("https://github.com/adikul30/MaterialNews");
             }
         });
+
+        iplLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleIntent("https://github.com/adikul30/IPL");
+            }
+        });
+
+        firebaseAppLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleIntent("https://github.com/adikul30/IoT-FCM");
+            }
+        });
+
+    }
+
+    private void handleIntent(String uri){
+        Intent githubRepo = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(githubRepo);
     }
 
     @Override

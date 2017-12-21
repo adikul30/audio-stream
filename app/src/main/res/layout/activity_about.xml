@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash"
@@ -9,26 +9,99 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:background="#ffffff">
 
     <TextView
         android:layout_marginTop="20dp"
         android:id="@+id/dev_name"
         android:textSize="24sp"
-        android:textColor="#424242"
+        android:textColor="@color/grey_800"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:text="Aditya Kulkarni\n\nLearning Android and Backend Web Dev\n\nSome of my projects on GitHub"
+        android:text="Aditya Kulkarni\n\nLearning Android and Backend Web Development\n\n"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/github_link"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/dev_name"
-        android:src="@drawable/github_64px"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <TextView
+            android:layout_gravity="start|center_vertical"
+            android:id="@+id/news_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Material News"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:id="@+id/news_app_link"
+            android:src="@drawable/github_64px"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="start|center_vertical"
+            android:id="@+id/ipl_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IPL"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:id="@+id/ipl_app_link"
+            android:src="@drawable/github_64px"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="start|center_vertical"
+            android:id="@+id/firebase_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IoT-FCM"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:id="@+id/firebase_app_link"
+            android:src="@drawable/github_64px"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
